@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public PasswordTrigger passwordTrigger;  // Reference to the PasswordTypeWriter script
+    public DialogueTypewriter dialogueTypeWriter;  // Reference to the DialogueTypeWriter script
+
+    private bool hasTriggered = false;  // Prevent the trigger from activating more than once
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !hasTriggered)
         {
-            passwordTrigger.TriggerTypingEffect();
+            dialogueTypeWriter.TriggerDialogue();
+            hasTriggered = true;  // Ensure this trigger only happens once
         }
     }
 }
